@@ -93,10 +93,5 @@ export const Empty: Story = {
 export const Filtered: Story = {
   args: {
     repositories: mockRepositories,
-    defaultFilters: {
-      language: 'TypeScript',
-      sort: 'stars',
-      order: 'desc'
-    }
   },
 }; 
