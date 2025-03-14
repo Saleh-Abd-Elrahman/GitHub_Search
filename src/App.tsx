@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { 
   Container, 
   Typography, 
@@ -11,14 +11,16 @@ import {
   AppBar, 
   Toolbar,
   GlobalStyles,
+  Divider,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { SearchForm } from './components/SearchForm';
 import { RepositoryList } from './components/RepositoryList';
 import { ThemeToggle } from './components/ThemeToggle';
-import { fetchUserRepositories } from './services/github';
-import { Repository } from './types/github';
+import { fetchUserRepositories, fetchUserProfile } from './services/github';
+import { Repository, UserProfile } from './types/github';
 import { useTheme } from './context/ThemeContext';
+import { UserProfileCard } from './components/UserProfileCard';
 
 function App() {
   const [repositories, setRepositories] = useState<Repository[]>([]);
@@ -26,6 +28,15 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const { mode, isTransitioning } = useTheme();
+  const [tokenMissing, setTokenMissing] = useState(false);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [profileLoading, setProfileLoading] = useState(false);
+
+  useEffect(() => {
+    // Check if the GitHub token is set
+    const token = import.meta.env.VITE_GITHUB_TOKEN;
+    setTokenMissing(!token);
+  }, []);
 
   // Create Material UI theme based on the current mode
   const theme = useMemo(() => createTheme({
@@ -124,10 +135,24 @@ function App() {
 
   const handleSearch = async (searchUsername: string) => {
     setLoading(true);
+    setProfileLoading(true);
     setError(null);
     setUsername(searchUsername);
+    setUserProfile(null);
 
     try {
+      // Fetch user profile
+      try {
+        const profile = await fetchUserProfile(searchUsername);
+        setUserProfile(profile);
+      } catch (err) {
+        console.error('Error fetching user profile:', err);
+        // Continue even if profile fetch fails, as we still want to show repositories
+      } finally {
+        setProfileLoading(false);
+      }
+
+      // Fetch repositories
       const repos = await fetchUserRepositories(searchUsername);
       setRepositories(repos);
       
@@ -201,9 +226,20 @@ function App() {
           </Toolbar>
         </AppBar>
         <Container maxWidth="lg" sx={{ py: 4 }}>
-          <SearchForm onSearch={handleSearch} isLoading={loading} />
+          {tokenMissing && (
+            <Alert severity="info" sx={{ mb: 3 }}>
+              <Typography variant="body1">
+                GitHub API Token Required: This app uses GitHub's GraphQL API which requires authentication.
+              </Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                Please create a token at <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreferrer">https://github.com/settings/tokens</a> and add it to your .env file as VITE_GITHUB_TOKEN.
+              </Typography>
+            </Alert>
+          )}
+          
+          <SearchForm onSearch={handleSearch} isLoading={loading || profileLoading} />
 
-          {loading && (
+          {(loading || profileLoading) && (
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
               <CircularProgress />
             </Box>
@@ -213,9 +249,31 @@ function App() {
 
           {username && !loading && !error && (
             <>
-              <Typography variant="h5" gutterBottom>
-                Repositories for {username}
+              {/* User Profile Section */}
+              {userProfile && (
+                <UserProfileCard profile={userProfile} />
+              )}
+
+              {/* Repository Section */}
+              <Typography 
+                variant="h5" 
+                gutterBottom 
+                sx={{ 
+                  mt: 4, 
+                  mb: 3,
+                  fontWeight: 500,
+                  color: mode === 'light' ? 'primary.dark' : 'primary.light'
+                }}
+              >
+                Repositories ({repositories.length})
               </Typography>
+              <Divider sx={{ 
+                mb: 4, 
+                opacity: 0.6,
+                background: mode === 'light' 
+                  ? 'linear-gradient(90deg, rgba(25, 118, 210, 0.2), rgba(25, 118, 210, 0.05) 50%, rgba(25, 118, 210, 0.2))'
+                  : 'linear-gradient(90deg, rgba(100, 181, 246, 0.3), rgba(100, 181, 246, 0.1) 50%, rgba(100, 181, 246, 0.3))'
+              }} />
               <RepositoryList repositories={repositories} />
             </>
           )}
