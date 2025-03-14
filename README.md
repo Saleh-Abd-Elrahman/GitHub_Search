@@ -1,85 +1,112 @@
-# GitHub Repository Search
+# GitHub Search
 
-A responsive React application that allows users to search for GitHub repositories by username and filter them by name and programming language.
+A modern React application for searching GitHub repositories and user profiles with a beautiful Material-UI interface. This application allows you to explore GitHub users, view their repositories, and access detailed information about both users and repositories.
+
+![GitHub Search App](./screenshot.png)
 
 ## Features
 
-- Search for GitHub repositories by username
-- Filter repositories by name
-- Filter repositories by programming language
-- Responsive design that works on mobile and desktop
-- Material UI components for a modern interface
-- Uses GitHub GraphQL API v4 for efficient data fetching
+- Search for GitHub users by username
+- View detailed user profiles including bio, location, and social links
+- Browse user repositories with filtering options
+- Dark/light theme toggle for better user experience
+- Responsive design that works on desktop and mobile devices
 
 ## Technologies Used
 
 - React
 - TypeScript
-- Material UI
-- Axios for API requests
-- GitHub GraphQL API v4
-- Vite for fast development
+- Material-UI
+- Storybook for component documentation
+- Vitest and React Testing Library for testing
 
-## Getting Started
+## Installation
 
-### Prerequisites
+To get started with the GitHub Search application, follow these steps:
 
-- Node.js (v14 or higher)
-- npm or yarn
-- GitHub Personal Access Token (for GraphQL API access)
-
-### Installation
-
-1. Clone the repository
 ```bash
-git clone <repository-url>
+# Clone the repository
+git clone https://github.com/yourusername/github-search.git
 cd github-search
-```
 
-2. Install dependencies
-```bash
+# Install dependencies
 npm install
-# or
-yarn
 ```
 
-3. Set up environment variables
-   - Copy `.env.example` to `.env`
-   - Add your GitHub Personal Access Token to `.env` (You can create a token at https://github.com/settings/tokens)
-   - No scopes are needed for accessing public repositories
+## Running the Application
+
+To run the application in development mode:
 
 ```bash
-cp .env.example .env
-# Then edit .env and add your token
+npm start
 ```
 
-4. Start the development server
+This will start the development server at [http://localhost:3000](http://localhost:3000).
+
+To build the application for production:
+
 ```bash
-npm run dev
-# or
-yarn dev
+npm run build
 ```
 
-5. Open your browser and navigate to `http://localhost:5173`
+The build artifacts will be stored in the `build/` directory.
 
-## Usage
+## Running the Test Suite
 
-1. Enter a GitHub username in the search field
-2. The application will fetch and display the user's repositories
-3. Use the filter fields to filter repositories by name or programming language
+This project uses Vitest and React Testing Library for testing. To run the test suite:
 
-## GitHub API Authentication
+```bash
+# Run tests once
+npm test
 
-This app uses GitHub's GraphQL API v4, which requires authentication. 
+# Run tests in watch mode
+npm run test:watch
 
-1. Create a personal access token at https://github.com/settings/tokens
-2. No scopes are required for accessing public repositories
-3. Add the token to your `.env` file
+# Run tests with coverage report
+npm run test:coverage
+```
 
-## API Rate Limiting
+## Using Storybook
 
-The GitHub GraphQL API has a rate limit of 5,000 points per hour for authenticated requests. Each point represents a certain complexity cost.
+This project includes Storybook for component development and documentation:
+
+```bash
+# Start Storybook
+npm run storybook
+```
+
+Storybook will be available at [http://localhost:6006](http://localhost:6006).
+
+## Future Improvements
+
+The following improvements are planned for future versions:
+
+1. **Advanced Search Features**
+   - Add search filters for repositories by language, stars, and forks
+   - Implement pagination for search results
+   - Add sorting options for repository lists
+
+2. **User Experience Enhancements**
+   - Add loading animations and skeleton screens
+   - Implement caching for improved performance
+   - Add user preferences storage (saved searches, preferred theme)
+
+3. **Additional Features**
+   - Repository trending visualization
+   - User activity timeline
+   - GitHub API rate limit monitoring
+   - Support for GitHub authentication to increase API rate limits
+
+4. **Technical Improvements**
+   - Implement server-side rendering for better SEO
+   - Add comprehensive error handling and offline support
+   - Optimize bundle size and performance
+   - Add end-to-end tests with Cypress
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the LICENSE file for details.
