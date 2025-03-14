@@ -1,10 +1,7 @@
 import {
   Avatar,
   Box,
-  Card,
-  CardContent,
   Chip,
-  Divider,
   Grid,
   Link,
   Stack,
@@ -37,7 +34,6 @@ interface UserProfileCardProps {
 export const UserProfileCard: React.FC<UserProfileCardProps> = ({ profile }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
-  const [linkError, setLinkError] = useState<{[key: string]: boolean}>({});
   const [portfolioUrl, setPortfolioUrl] = useState<string | null>(null);
   const [linkedInUrl, setLinkedInUrl] = useState<string | null>(null);
   const [linkedInUsername, setLinkedInUsername] = useState<string | null>(null);
@@ -92,11 +88,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ profile }) => 
     }
   };
 
-  // Handle link error when image fails to load
-  const handleImageError = (key: string) => {
-    setLinkError(prev => ({...prev, [key]: true}));
-  };
-
   // Testing URL validity
   const isValidUrl = (url: string): boolean => {
     try {
@@ -105,42 +96,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ profile }) => 
     } catch (e) {
       return false;
     }
-  };
-
-  // Detect if a URL is likely a portfolio or personal website
-  const isPortfolioSite = (url: string): boolean => {
-    if (!url) return false;
-    
-    // Format the URL for checking
-    const formattedUrl = formatUrl(url);
-    const urlLower = formattedUrl.toLowerCase();
-    
-    // Skip LinkedIn, Twitter, GitHub as portfolios
-    if (
-      urlLower.includes('linkedin.com') || 
-      urlLower.includes('twitter.com') || 
-      urlLower.includes('x.com') ||
-      urlLower.includes('github.com')
-    ) {
-      return false;
-    }
-    
-    // Common personal portfolio indicators
-    const portfolioKeywords = [
-      'portfolio', 'personal', 'website', 'me', 'about', 'home', 'profile', 'resume'
-    ];
-    
-    // Check for common personal portfolio domains or paths
-    const isPortfolioDomain = (
-      urlLower.includes('.dev') || 
-      urlLower.includes('.me') || 
-      urlLower.includes('.io') ||
-      urlLower.includes('portfolio') ||
-      urlLower.includes('personal') ||
-      portfolioKeywords.some(keyword => urlLower.includes(`/${keyword}`))
-    );
-    
-    return isPortfolioDomain;
   };
 
   // Extract Website URL from profile data
@@ -313,9 +268,6 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ profile }) => 
       location: profile.location
     });
   }, [profile]);
-
-  // Has social media links?
-  const hasSocialLinks = Boolean(linkedInUrl || profile.twitter_username);
 
   return (
     <Paper
