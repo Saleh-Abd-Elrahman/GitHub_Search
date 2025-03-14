@@ -82,7 +82,7 @@ Storybook will be available at [http://localhost:6006](http://localhost:6006).
 The following improvements are planned for future versions:
 
 1. **Advanced Search Features**
-   - Add search filters for repositories by language, stars, and forks
+   - Add search filters for repositories by stars, and forks
    - Implement pagination for search results
    - Add sorting options for repository lists
 
