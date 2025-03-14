@@ -97,16 +97,4 @@ The following improvements are planned for future versions:
    - GitHub API rate limit monitoring
    - Support for GitHub authentication to increase API rate limits
 
-4. **Technical Improvements**
-   - Implement server-side rendering for better SEO
-   - Add comprehensive error handling and offline support
-   - Optimize bundle size and performance
-   - Add end-to-end tests with Cypress
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
