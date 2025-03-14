@@ -15,7 +15,6 @@ import {
   alpha,
   Divider,
 } from '@mui/material';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import TuneIcon from '@mui/icons-material/Tune';
 import { Repository } from '../types/github';
 import { RepositoryCard } from './RepositoryCard';
