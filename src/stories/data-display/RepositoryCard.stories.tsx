@@ -33,9 +33,7 @@ export const Default: Story = {
       language: 'JavaScript',
       stargazers_count: 175000,
       forks_count: 35000,
-      created_at: '2013-05-24T16:15:54Z',
       updated_at: '2023-03-15T12:34:56Z',
-      topics: ['javascript', 'ui', 'library', 'react'],
       owner: {
         login: 'facebook',
         avatar_url: 'https://avatars.githubusercontent.com/u/69631?v=4',
@@ -55,9 +53,7 @@ export const NoDescription: Story = {
       language: 'TypeScript',
       stargazers_count: 123,
       forks_count: 45,
-      created_at: '2021-01-15T10:20:30Z',
       updated_at: '2023-02-10T08:15:00Z',
-      topics: ['typescript'],
       owner: {
         login: 'user',
         avatar_url: 'https://avatars.githubusercontent.com/u/123456?v=4',
@@ -77,9 +73,7 @@ export const NoLanguage: Story = {
       language: null,
       stargazers_count: 50,
       forks_count: 10,
-      created_at: '2022-05-20T14:30:00Z',
       updated_at: '2023-01-05T11:22:33Z',
-      topics: ['documentation', 'examples'],
       owner: {
         login: 'user',
         avatar_url: 'https://avatars.githubusercontent.com/u/123456?v=4',
