@@ -2,7 +2,10 @@
 
 A modern React application for searching GitHub repositories and user profiles with a beautiful Material-UI interface. This application allows you to explore GitHub users, view their repositories, and access detailed information about both users and repositories.
 
-![GitHub Search App](./screenshot.png)
+
+<img width="1352" alt="Screenshot 2025-03-14 at 19 49 59" src="https://github.com/user-attachments/assets/8f211a7f-9323-47fa-9e6f-d2a86b96c143" />
+
+<img width="1352" alt="Screenshot 2025-03-14 at 19 50 05" src="https://github.com/user-attachments/assets/72b6a899-08e2-4a5b-8404-6df4644369c0" />
 
 ## Features
 
