@@ -8,6 +8,7 @@ import {
   Button,
   Stack,
   useTheme as useMuiTheme,
+  Tooltip,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import StarIcon from '@mui/icons-material/Star';
@@ -83,9 +84,24 @@ export const RepositoryCard = ({ repository }: RepositoryCardProps) => {
       }}
     >
       <CardContent sx={{ flexGrow: 1, position: 'relative', zIndex: 1 }}>
-        <Typography variant="h6" component="div" gutterBottom noWrap>
-          {repository.name}
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
+          <Typography variant="h6" component="div" gutterBottom noWrap sx={{ flexGrow: 1 }}>
+            {repository.name}
+          </Typography>
+          {repository.is_fork && (
+            <Tooltip title="Forked Repository">
+              <ForkLeftIcon
+                fontSize="small"
+                sx={{
+                  ml: 1,
+                  color: isDarkMode 
+                    ? muiTheme.palette.primary.light 
+                    : muiTheme.palette.primary.main,
+                }}
+              />
+            </Tooltip>
+          )}
+        </Box>
         <Typography 
           variant="body2" 
           color="text.secondary" 
